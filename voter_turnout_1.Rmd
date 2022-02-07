@@ -1,0 +1,56 @@
+
+---
+title: "US elections 2106 and 2018 graphs (voter turnout stats)"
+---
+
+```{r}
+library(tidyverse)
+
+vturnout_2016 <- read.csv("https://raw.githubusercontent.com/Filip-Vrto/Project_politics_1/main/turnout_rates_by_age_2016.csv")
+
+vturnout_2018 <- read.csv("https://raw.githubusercontent.com/Filip-Vrto/Project_politics_1/main/turnout_rates_by_age_2018.csv")
+
+ggplot(vturnout_2016, aes (x = age, y = citizen_turnout_rate, colour = registered_turnout_rate)) +
+geom_point() +
+  labs(title = "Voter turnout by age", subtitle = "Year 2016", x = "Age (years)", y = "Turnout", colour = "Turnout of registered voters", caption = "Small graph of 2016 data")
+
+ggplot(vturnout_2018, aes (x = age, y = citizen_turnout_rate, colour = registered_turnout_rate)) +
+geom_point() +
+  labs(title = "Voter turnout by age", subtitle = "Year 2018", x = "Age (years)", y = "Turnout", colour = "Turnout of registered voters", caption = "Small graph of 2018 data")
+
+ggplot(vturnout_2016) +
+  geom_smooth (aes(x = age, y = citizen_turnout_rate)) +
+  labs(title = "Voter turnout by age", subtitle = "Year 2016 - line graph", x = "Age (years)", y = "Turnout", caption = "Line graph of 2016 data")
+
+ggplot(vturnout_2018) +
+  geom_smooth (aes(x = age, y = citizen_turnout_rate)) +
+  labs(title = "Voter turnout by age", subtitle = "Year 2018 - line graph", x = "Age (years)", y = "Turnout", caption = "Line graph of 2018 data")
+
+ggplot(vturnout_2016) + 
+  geom_point (aes (x = age, y = citizen_turnout_rate)) +
+  geom_smooth (aes (x = age, y = citizen_turnout_rate)) +
+  labs(title = "Voter turnout by age", subtitle = "Plot and line graph - 2016", x = "Age", y = "Voter turnout")
+
+ggplot(vturnout_2018) + 
+  geom_point (aes (x = age, y = citizen_turnout_rate)) +
+  geom_smooth (aes (x = age, y = citizen_turnout_rate)) +
+  labs(title = "Voter turnout by age", subtitle = "Plot and line graph - 2018", x = "Age", y = "Voter turnout")
+
+ggplot(vturnout_2016, aes(x=age)) +
+  geom_smooth ( aes (y = citizen_turnout_rate_hispanic, colour = "Hispanic")) +
+  geom_point ( shape = 5, size = 0.8, aes (y = citizen_turnout_rate_hispanic, colour = "Hispanic")) +
+  geom_smooth ( aes ( y = citizen_turnout_rate_black, colour = "Black")) +
+  geom_point ( shape = 5, size = 0.8, aes ( y = citizen_turnout_rate_black, colour = "Black")) +
+   geom_smooth ( aes (y = citizen_turnout_rate_white, colour = "White")) +
+  geom_point ( shape = 5, size = 0.8, aes (y = citizen_turnout_rate_white, colour = "White")) +
+  labs(title = "Voter turnout by age 2016", subtitle = "Separated by race (White, Black and Hispanic)", x = "Age", y = "Voter turnout") +
+  scale_color_discrete(name = "Voter division", labels = c("Hispanic race", "Black race", "White race"))
+
+ggplot(vturnout_2016, aes (x=age)) +
+  geom_smooth ( aes (y = registered_turnout_rate, colour = "place1")) +
+  geom_point ( shape = 5, size = 0.8, aes (y = registered_turnout_rate, colour = "place1")) +
+   geom_smooth ( aes (y = citizen_turnout_rate, colour = "place2")) +
+  geom_point ( shape = 5, size = 0.8, aes (y = citizen_turnout_rate, colour = "place2")) +
+  labs(title = "Voter turnout all people vs. registered voters", subtitle = "US 2016 elections", x = "Age", y = "Voter turnout") +
+scale_color_discrete(name = "Type of voter", labels = c("place1"="Registered", "place2"="All people"))
+```
